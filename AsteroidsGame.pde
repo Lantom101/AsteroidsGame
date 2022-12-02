@@ -8,18 +8,20 @@ public void setup()
   {
     nightSky[i] = new Star();
   }
-  for (int i = 0; i <= 8; i++){
+  for (int i = 0; i <= 10; i++){
     rocks.add(new Asteroid());
   }
 }
 public void draw() 
 {
   background(0);
+  // stars
   for (int i = 0; i < nightSky.length; i++)
   {
     nightSky[i].show();
   }
-
+  
+  // spaceship
   if(keyPressed){
     if (key == 'a'|| key == 'A'){
       bob.turn(10);
@@ -35,12 +37,15 @@ public void draw()
   }
   bob.move();
   bob.show();
-
+  
+  // asteroids
+  // System.out.println(rocks.size());
   for (int i = 0; i < rocks.size(); i++){
     rocks.get(i).move();
     rocks.get(i).show();
     float d = dist((float)bob.getX(),(float)bob.getY(),(float)rocks.get(i).getX(),(float)rocks.get(i).getY());
-    if (d < 10){
+    // System.out.println(rocks.get(i));
+    if (d < 20){
       rocks.remove(i);
     }
   }
