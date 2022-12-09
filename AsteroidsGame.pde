@@ -1,6 +1,7 @@
 Spaceship bob = new Spaceship();
 Star [] nightSky = new Star[200];
 ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
+ArrayList <Bullet> shots = new ArrayList <Bullet>();
 public void setup() 
 {
   size(500,500);
@@ -33,10 +34,29 @@ public void draw()
       bob.turn(-10);
     } else if (key == 'h'|| key == 'H'){
       bob.hyperspace();
+    } else if (key == ' ') {
+      shots.add(new Bullet(bob));
     }
   }
   bob.move();
   bob.show();
+  for (int i = 0; i < shots.size(); i++){
+    shots.get(i).move();
+    shots.get(i).show();
+    float shotX = (float) shots.get(i).getX();
+    float shotY = (float) shots.get(i).getY();
+    if (shotX > 450 || shotX < 50 || shotY > 490 || shotY < 50){
+      shots.remove(i);
+    } else {
+      for (int j = 0; j < rocks.size(); j++){
+        float di = dist(shotX, shotY,(float)rocks.get(j).getX(),(float)rocks.get(j).getY());
+        if (di < 10) {
+          rocks.remove(j);
+          shots.remove(i);
+        }
+      }
+    }
+  }
   
   // asteroids
   // System.out.println(rocks.size());
@@ -45,8 +65,9 @@ public void draw()
     rocks.get(i).show();
     float d = dist((float)bob.getX(),(float)bob.getY(),(float)rocks.get(i).getX(),(float)rocks.get(i).getY());
     // System.out.println(rocks.get(i));
-    if (d < 20){
+    if (d < 10){
       rocks.remove(i);
     }
+    
   }
 }
