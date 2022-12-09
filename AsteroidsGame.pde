@@ -45,7 +45,7 @@ public void draw()
     shots.get(i).show();
     float shotX = (float) shots.get(i).getX();
     float shotY = (float) shots.get(i).getY();
-    if (shotX > 450 || shotX < 50 || shotY > 490 || shotY < 50){
+    if (shotX > 490 || shotX < 10 || shotY > 490 || shotY < 10){
       shots.remove(i);
     } else {
       for (int j = 0; j < rocks.size(); j++){
